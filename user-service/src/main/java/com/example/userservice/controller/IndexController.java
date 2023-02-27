@@ -15,7 +15,12 @@ public class IndexController {
 
     @GetMapping("/health_check")
     public String status() {
-        return String.format("It's Working in Catalog Service on PORT %s", env.getProperty("local.server.port"));
+        return String.format(
+                "It's Working in Catalog Service on PORT %s, EXPIRATION TIME %s, SECRET %s",
+                env.getProperty("local.server.port"),
+                env.getProperty("token.expiration_time"),
+                env.getProperty("token.secret")
+        );
     }
 
     @GetMapping("/welcome")

@@ -1,7 +1,10 @@
 server:
   port: 0
-#  servlet:
-#    context-path: /user-service
+  servlet:
+    context-path: /user-service
+    encoding:
+      charset: UTF-8
+      force: true
 
 spring:
   application:
@@ -49,5 +52,8 @@ eureka:
       defaultZone: http://127.0.0.1:8761/eureka
 
 
-greeting:
-  message: Welcome to the Simple E-Commerce.
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans

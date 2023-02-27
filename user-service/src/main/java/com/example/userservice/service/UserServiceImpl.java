@@ -33,14 +33,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByEmail(username)
-                .map(entity -> {
-                    return new org.springframework.security.core.userdetails.User(
-                            entity.getEmail(),
-                            entity.getPwd(),
-                            true, true, true, true,
-                            new ArrayList<>()
-                    );
-                })
+                .map(entity -> new org.springframework.security.core.userdetails.User(
+                        entity.getEmail(),
+                        entity.getPwd(),
+                        true, true, true, true,
+                        new ArrayList<>()
+                ))
                 .orElseThrow(() -> new UsernameNotFoundException(username));
     }
 
@@ -60,6 +58,13 @@ public class UserServiceImpl implements UserService {
         userDto.setOrders(orders);
 
         return userDto;
+    }
+
+    @Override
+    public UserDto getUserDetailsByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .map(userMapper::toDto)
+                .orElseThrow(EntityNotFoundException::new);
     }
 
     @Override
