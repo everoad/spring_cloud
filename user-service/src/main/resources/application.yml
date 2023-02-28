@@ -19,14 +19,14 @@ spring:
       settings:
         web-allow-others: true
       path: /h2-console
-  datasource:
-    type: com.zaxxer.hikari.HikariDataSource
-    hikari:
-      pool-name: HikariConnectionPool
-      username: tester
-      password: 'qwer'
-      jdbc-url: jdbc:h2:mem:testdb;DB_CLOSE_ON_EXIT=FALSE
-      driver-class-name: org.h2.Driver
+#  datasource:
+#    type: com.zaxxer.hikari.HikariDataSource
+#    hikari:
+#      pool-name: HikariConnectionPool
+#      username: tester
+#      password: 'qwer'
+#      jdbc-url: jdbc:h2:mem:testdb;DB_CLOSE_ON_EXIT=FALSE
+#      driver-class-name: org.h2.Driver
   jpa:
     hibernate.ddl-auto: create-drop
     generate-ddl: true
@@ -41,6 +41,8 @@ spring:
         default_batch_fetch_size: 100
         jdbc.lob.non_contextual_creation: true
     defer-datasource-initialization: true
+  kafka:
+    bootstrap-servers: http://localhost:9092
 
 eureka:
   instance:
@@ -56,4 +58,4 @@ management:
   endpoints:
     web:
       exposure:
-        include: refresh, health, beans
+        include: refresh, busrefresh, health, beans, info, prometheus, metrics

@@ -26,7 +26,7 @@ public class LoggingFilter extends AbstractGatewayFilterFactory<LoggingFilter.Co
             ServerHttpRequest request = exchange.getRequest();
             ServerHttpResponse response = exchange.getResponse();
 
-            log.info("Logging PRE filter: baseMessage -> {}", config.getBaseMessage());
+            log.info("Logging PRE filter: url -> {}", request.getURI());
             if (config.isPreLogger()) {
                 log.info("Logging Filter start: request id -> {}", request.getId());
             }

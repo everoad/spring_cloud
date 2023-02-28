@@ -10,4 +10,5 @@ spring:
         git:
           uri: https://github.com/everoad/spring_cloud_config.git
           default-label: master
-#          username: everoad
+  kafka:
+    bootstrap-servers: http://localhost:9092

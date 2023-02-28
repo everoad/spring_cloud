@@ -1,5 +1,6 @@
 package com.example.userservice.controller;
 
+import io.micrometer.core.annotation.Timed;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ public class IndexController {
     private final Environment env;
 
     @GetMapping("/health_check")
+    @Timed(value = "users.status", longTask = true)
     public String status() {
         return String.format(
                 "It's Working in Catalog Service on PORT %s, EXPIRATION TIME %s, SECRET %s",
@@ -24,6 +26,7 @@ public class IndexController {
     }
 
     @GetMapping("/welcome")
+    @Timed(value = "users.welcome", longTask = true)
     public String welcome() {
         return "welcome";
     }

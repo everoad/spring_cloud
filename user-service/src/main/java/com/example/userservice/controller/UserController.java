@@ -5,6 +5,7 @@ import com.example.userservice.dto.SaveUserDto;
 import com.example.userservice.dto.UserDto;
 import com.example.userservice.mapper.UserMapper;
 import com.example.userservice.service.UserService;
+import io.micrometer.core.annotation.Timed;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,7 @@ public class UserController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
+    @Timed(value = "users.list", longTask = true)
     public List<UserDto> getUserAll() {
         return userService.getUserAll();
     }

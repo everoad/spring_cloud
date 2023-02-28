@@ -12,11 +12,13 @@ management:
   endpoints:
     web:
       exposure:
-        include: refresh, health, beans, httpexchanges
+        include: refresh, busrefresh, health, beans, info, prometheus, metrics
 
 spring:
   application:
     name: gateway-service
+  kafka:
+    bootstrap-servers: http://localhost:9092
   cloud:
     gateway:
       default-filters:
@@ -39,6 +41,13 @@ spring:
           predicates:
             - Path=/user-service/users
             - Method=POST
+          filters:
+            - RemoveRequestHeader=Cookie
+
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user-service/actuator/**
           filters:
             - RemoveRequestHeader=Cookie
 
